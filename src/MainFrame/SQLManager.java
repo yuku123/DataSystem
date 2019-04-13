@@ -20,8 +20,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
-
 public class SQLManager {
 	private static final String user=Password.user;
 	private static final String password=Password.password;
@@ -32,13 +30,13 @@ public class SQLManager {
 	private String db;
 	private String url;
 	private Connection conn;
-	private PreparedStatement pstmt; // ¹¤³Ì±í
-	private PreparedStatement pstmt2;// Ï´Æ¬ÊÂÎñ±í
-	private PreparedStatement pstmt3;// ¹¤ÈËÊÂÎñ±í
-	private PreparedStatement pstmt4;// ±¨¸æ±í
-	private PreparedStatement pstmt5;// ºÏÍ¬±í
-	private PreparedStatement pstmt6;// ¶ÔÄÚµ¥¼Û±í
-	private PreparedStatement pstmt7;// ¶ÔÄÚµ¥¼Û±í
+	private PreparedStatement pstmt; // ï¿½ï¿½ï¿½Ì±ï¿½
+	private PreparedStatement pstmt2;// Ï´Æ¬ï¿½ï¿½ï¿½ï¿½ï¿½
+	private PreparedStatement pstmt3;// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private PreparedStatement pstmt4;// ï¿½ï¿½ï¿½ï¿½ï¿½
+	private PreparedStatement pstmt5;// ï¿½ï¿½Í¬ï¿½ï¿½
+	private PreparedStatement pstmt6;// ï¿½ï¿½ï¿½Úµï¿½ï¿½Û±ï¿½
+	private PreparedStatement pstmt7;// ï¿½ï¿½ï¿½Úµï¿½ï¿½Û±ï¿½
 
 
 	private String search_str[] = { "select cmd_num from project_table;", // 0
@@ -76,22 +74,22 @@ public class SQLManager {
 			Class.forName(driver);
 
 		} catch (FileNotFoundException e) {
-			System.out.println("ÕÒ²»µ½ mysql.ini ÎÄ¼þ");
-			JOptionPane.showMessageDialog(null, "ÕÒ²»µ½ mysql.ini ÎÄ¼þ", "Á¬½ÓÊ§°Ü", JOptionPane.ERROR_MESSAGE);
+			System.out.println("ï¿½Ò²ï¿½ï¿½ï¿½ mysql.ini ï¿½Ä¼ï¿½");
+			JOptionPane.showMessageDialog(null, "ï¿½Ò²ï¿½ï¿½ï¿½ mysql.ini ï¿½Ä¼ï¿½", "ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		} catch (IOException e) {
-			System.out.println("ÎÄ¼þ¼ÓÔØ´íÎó");
-			JOptionPane.showMessageDialog(null, "´ò²»¿ª mysql.ini ÎÄ¼þ", "Á¬½ÓÊ§°Ü", JOptionPane.ERROR_MESSAGE);
+			System.out.println("ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Ø´ï¿½ï¿½ï¿½");
+			JOptionPane.showMessageDialog(null, "ï¿½ò²»¿ï¿½ mysql.ini ï¿½Ä¼ï¿½", "ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½", JOptionPane.ERROR_MESSAGE);
 		} catch (ClassNotFoundException e) {
-			System.out.println("Ã»ÕÒµ½Çý¶¯Àà");
+			System.out.println("Ã»ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		}
 
 		try {
 			conn = DriverManager.getConnection(url, user, password);
-			System.out.println("µÚÒ»´ÎÁ¬½Ó³É¹¦");
+			System.out.println("ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ó³É¹ï¿½");
 		} catch (SQLException e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Êý¾Ý¿âÁ¬½ÓÊ§°Ü£¬¼ì²éÁ¬½Ó", "Á¬½ÓÊ§°Ü", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½", JOptionPane.ERROR_MESSAGE);
 			NetDialog di =  new  NetDialog();
 			while(di.getReturn());
 			return true;
@@ -101,16 +99,16 @@ public class SQLManager {
 		return false;
 	}
 
-	// TODO Ê§Ð§Ê±ÖØÁ¬
+	// TODO Ê§Ð§Ê±ï¿½ï¿½ï¿½ï¿½
 	public int reconnect() {
 		try {
 			conn = DriverManager.getConnection(url, user, password);
-			System.out.println("ÖØÐÂ»ñµÃÁ¬½Ó");
+			System.out.println("ï¿½ï¿½ï¿½Â»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 			return 1;
 		} catch (SQLException e) {
-			// ÖØÁ¬Ê§°Ü£¬µ¯³ö´íÎó
+			// ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Êý¾Ý¿âÁ¬½ÓÊ§°Ü£¬¼ì²éÁ¬½Ó", "Á¬½ÓÊ§°Ü", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½", JOptionPane.ERROR_MESSAGE);
 			return 0;
 		}
 	}
@@ -119,25 +117,25 @@ public class SQLManager {
 		return conn;
 	}
 
-	// TODO ²åÈë¹¤³Ì±í
+	// TODO ï¿½ï¿½ï¿½ë¹¤ï¿½Ì±ï¿½
 	public int insertPro(String[] str) {
 		try {
 			pstmt = conn.prepareStatement("insert into  project_table values(null,?,?,?,?,?,?,?,?,?,?);");
-			System.out.println("statment1´´½¨³É¹¦");
+			System.out.println("statment1ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½");
 		} catch (SQLException e) {
-			// »ñµÃÓï¾äÊ§°ÜÔòÖØÁ¬
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			e.printStackTrace();
 			reconnect();
 			try {
 				pstmt = conn.prepareStatement("insert into  project_table values(null,?,?,?,?,?,?,?,?,?,?);");
 			} catch (SQLException f) {
 				f.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Êý¾Ý¿âÁ¬½ÓÊ§°Ü£¬¼ì²éÁ¬½Ó", "Á¬½ÓÊ§°Ü", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½", JOptionPane.ERROR_MESSAGE);
 				return 0;
 			}
 
 		}
-		// catch½áÊø£¬Ö´ÐÐÖ®ºóÓï¾ä
+		// catchï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½ï¿½
 		try {
 			for (int i = 0; i < str.length; i++) {
 				if (!str[i].equals(""))
@@ -146,20 +144,20 @@ public class SQLManager {
 					pstmt.setNull(i + 1, java.sql.Types.VARCHAR);
 			}
 			pstmt.executeUpdate();
-			System.out.println("statment1Ö´ÐÐ³É¹¦");
-			JOptionPane.showMessageDialog(null, "´´½¨³É¹¦", "³É¹¦", JOptionPane.PLAIN_MESSAGE);
+			System.out.println("statment1Ö´ï¿½Ð³É¹ï¿½");
+			JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½", "ï¿½É¹ï¿½", JOptionPane.PLAIN_MESSAGE);
 			return 1;
 		} catch (SQLException e1) {
 			e1.printStackTrace();
-			JOptionPane.showMessageDialog(null, "ÌîÐ´ÐÅÏ¢´íÎó£¬¿ÉÄÜÓëÒÑÓÐÖ¸Áîµ¥ºÅÓÐÖØ¸´", "²åÈë´íÎó", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "ï¿½ï¿½Ð´ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ó£¬¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½îµ¥ï¿½ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", JOptionPane.ERROR_MESSAGE);
 			return 0;
 		} finally {
-			// ¹Ø±ÕÓï¾ä
+			// ï¿½Ø±ï¿½ï¿½ï¿½ï¿½
 			try {
 				if (!pstmt.isClosed()) {
 					try {
 						pstmt.close();
-						System.out.println("statment1¹Ø±Õ³É¹¦");
+						System.out.println("statment1ï¿½Ø±Õ³É¹ï¿½");
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
@@ -172,125 +170,125 @@ public class SQLManager {
 
 	}
 
-	// TODO ²éÑ¯ ¶àÓï¾äÓÃÓÚ´´½¨ÏÂÀ­ÁÐ±í,Òª´«Èë²ÎÊý,typenum 0 model, 1 ArrayList 2 String
+	// TODO ï¿½ï¿½Ñ¯ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½,Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,typenum 0 model, 1 ArrayList 2 String
 	public Object search(int search_id, int typenum, String[] statment_option) {
 		try (PreparedStatement pstmt = conn.prepareStatement(search_str[search_id]);
 
 		) {
-			// °Ñstatment·Ö½â³ÉpreparedstatmentµÄ¸÷¸öÎÊºÅ£¬²¢¸³Öµ
-			System.out.println("statment2´´½¨³É¹¦");
+			// ï¿½ï¿½statmentï¿½Ö½ï¿½ï¿½preparedstatmentï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ÊºÅ£ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+			System.out.println("statment2ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½");
 			for (int i = 0; i < statment_option.length; i++) {
 				pstmt.setString(i + 1, statment_option[i]);
 			}
 			ResultSet rs = pstmt.executeQuery();
-			System.out.println("µÃµ½resultset2");
+			System.out.println("ï¿½Ãµï¿½resultset2");
 			System.out.println(Thread.currentThread().getStackTrace()[3]);
 
-			// Èç¹ûÐèÒª´«³öArrayListÔò´«³ö
+			// ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ArrayListï¿½ò´«³ï¿½
 			if (typenum == 1) {
 				ArrayList<String> result = new ArrayList<>();
 				while (rs.next()) {
 					result.add(rs.getString(1));
 				}
-				System.out.println("·µ»ØArrayList2");
+				System.out.println("ï¿½ï¿½ï¿½ï¿½ArrayList2");
 				return result;
-				// Èç¹ûÐèÒª´«³ömodel£¬Ôò´«³ö
+				// ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½modelï¿½ï¿½ï¿½ò´«³ï¿½
 			}
 			if (typenum == 0) {
 				DefaultComboBoxModel<String> result = new DefaultComboBoxModel<String>();
 				while (rs.next()) {
 					result.addElement(rs.getString(1));
 				}
-				System.out.println("·µ»Ømodel2");
+				System.out.println("ï¿½ï¿½ï¿½ï¿½model2");
 				return result;
 			}
-			// typenum = 2,´«³ö1¸öString
+			// typenum = 2,ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½String
 			if (typenum == 2) {
 				String result;
 				while (rs.next()) {
 					result = rs.getString(1);
-					System.out.println("·µ»ØString3");
+					System.out.println("ï¿½ï¿½ï¿½ï¿½String3");
 					return result;
 				}
-				System.out.println("Ã»²éÑ¯µ½String2");
+				System.out.println("Ã»ï¿½ï¿½Ñ¯ï¿½ï¿½String2");
 				return null;
 			}
 			return null;
 		} catch (SQLException e) {
-			// Èç¹ûÓÐÒì³£,ÖØÁ¬
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì³£,ï¿½ï¿½ï¿½ï¿½
 			e.printStackTrace();
 			reconnect();
-			JOptionPane.showMessageDialog(null, "Çë¼ì²éÍøÂçÁ¬½Ó£¬ÔÙ´Î³¢ÊÔ»òÖØÐÂ´ò¿ªÈí¼þ", "²éÑ¯Ê§°Ü", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó£ï¿½ï¿½Ù´Î³ï¿½ï¿½Ô»ï¿½ï¿½ï¿½ï¿½Â´ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½Ñ¯Ê§ï¿½ï¿½", JOptionPane.ERROR_MESSAGE);
 			return null;
 		}
 	}
 
-	// TODO ²éÑ¯,²»ÓÃ´«Èë²ÎÊý,·µ»ØÀàÐÍtypenum 0 model, 1 ArrayList 2 String
+	// TODO ï¿½ï¿½Ñ¯,ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½typenum 0 model, 1 ArrayList 2 String
 	public Object search(int search_id, int typenum) {
 		try (PreparedStatement pstmt = conn.prepareStatement(search_str[search_id]);) {
-			// °Ñstatment·Ö½â³ÉpreparedstatmentµÄ¸÷¸öÎÊºÅ£¬²¢¸³Öµ
-			System.out.println("statment3´´½¨³É¹¦");
+			// ï¿½ï¿½statmentï¿½Ö½ï¿½ï¿½preparedstatmentï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ÊºÅ£ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+			System.out.println("statment3ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½");
 			ResultSet rs = pstmt.executeQuery();
-			System.out.println("µÃµ½resultset3");
+			System.out.println("ï¿½Ãµï¿½resultset3");
 			System.out.println(Thread.currentThread().getStackTrace()[2]);
-			// Èç¹ûÐèÒª´«³öArrayListÔò´«³ö
+			// ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ArrayListï¿½ò´«³ï¿½
 			if (typenum == 1) {
 				ArrayList<String> result = new ArrayList<>();
 				while (rs.next()) {
 					result.add(rs.getString(1));
 				}
-				System.out.println("·µ»ØArrayList3");
+				System.out.println("ï¿½ï¿½ï¿½ï¿½ArrayList3");
 				return result;
-				// Èç¹ûÐèÒª´«³ömodel£¬Ôò´«³ö
+				// ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½modelï¿½ï¿½ï¿½ò´«³ï¿½
 			}
 			if (typenum == 0) {
 				DefaultComboBoxModel<String> result = new DefaultComboBoxModel<String>();
 				while (rs.next()) {
 					result.addElement(rs.getString(1));
 				}
-				System.out.println("·µ»Ømodel3");
+				System.out.println("ï¿½ï¿½ï¿½ï¿½model3");
 				return result;
 			}
-			// typenum = 2,´«³ö1¸öString
+			// typenum = 2,ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½String
 			if (typenum == 2) {
 				String result;
 				while (rs.next()) {
 					result = rs.getString(1);
-					System.out.println("·µ»ØString3");
+					System.out.println("ï¿½ï¿½ï¿½ï¿½String3");
 					return result;
 				}
-				System.out.println("Ã»²éÑ¯µ½String3");
+				System.out.println("Ã»ï¿½ï¿½Ñ¯ï¿½ï¿½String3");
 				return null;
 			}
 			return null;
 		} catch (SQLException e) {
-			// Èç¹ûÓÐÒì³£,ÖØÁ¬
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì³£,ï¿½ï¿½ï¿½ï¿½
 			e.printStackTrace();
 			reconnect();
-			JOptionPane.showMessageDialog(null, "Çë¼ì²éÍøÂçÁ¬½Ó£¬ÔÙ´Î³¢ÊÔ»òÖØÐÂ´ò¿ªÈí¼þ", "²éÑ¯Ê§°Ü", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó£ï¿½ï¿½Ù´Î³ï¿½ï¿½Ô»ï¿½ï¿½ï¿½ï¿½Â´ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½Ñ¯Ê§ï¿½ï¿½", JOptionPane.ERROR_MESSAGE);
 			return null;
 		}
 	}
 
-//	// TODO ²åÈëÏ´Æ¬±í
+//	// TODO ï¿½ï¿½ï¿½ï¿½Ï´Æ¬ï¿½ï¿½
 //	public int insert_xipian_table(String[] str) {
 //		try {
 //			pstmt2 = conn.prepareStatement("insert into xipian_table values(null,?,?,?,?,?,?,?,?,?);");
-//			System.out.println("statment_xipian´´½¨³É¹¦");
+//			System.out.println("statment_xipianï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½");
 //		} catch (SQLException e) {
-//			// »ñµÃÓï¾äÊ§°ÜÔòÖØÁ¬
+//			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //			e.printStackTrace();
 //			reconnect();
 //			try {
 //				pstmt2 = conn.prepareStatement("insert into xipian_table values(null,?,?,?,?,?,?,?,?,?);");
 //			} catch (SQLException f) {
 //				f.printStackTrace();
-//				JOptionPane.showMessageDialog(null, "Êý¾Ý¿âÁ¬½ÓÊ§°Ü£¬ÎÞ·¨²åÈëÏ´Æ¬±í", "Á¬½ÓÊ§°Ü", JOptionPane.ERROR_MESSAGE);
+//				JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½Ï´Æ¬ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½", JOptionPane.ERROR_MESSAGE);
 //				return 0;
 //			}
 //
 //		}
-//		// catch½áÊø£¬Ö´ÐÐÖ®ºóÓï¾ä
+//		// catchï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½ï¿½
 //		try {
 //			for (int i = 0; i < str.length; i++) {
 //				if (!str[i].equals(""))
@@ -299,20 +297,20 @@ public class SQLManager {
 //					pstmt2.setNull(i + 1, java.sql.Types.VARCHAR);
 //			}
 //			pstmt2.executeUpdate();
-//			System.out.println("²åÈëÏ´Æ¬Ö´ÐÐ³É¹¦");
-//			JOptionPane.showMessageDialog(null, "²åÈë³É¹¦", "³É¹¦", JOptionPane.PLAIN_MESSAGE);
+//			System.out.println("ï¿½ï¿½ï¿½ï¿½Ï´Æ¬Ö´ï¿½Ð³É¹ï¿½");
+//			JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½ï¿½É¹ï¿½", "ï¿½É¹ï¿½", JOptionPane.PLAIN_MESSAGE);
 //			return 1;
 //		} catch (SQLException e1) {
 //			e1.printStackTrace();
-//			JOptionPane.showMessageDialog(null, "ÌîÐ´ÐÅÏ¢´íÎó»ò¸ÃÖ¸Áîµ¥ºÅ¸ÃÈÕÏ´Æ¬ÈË¹¤×÷Á¿ÒÑÊäÈë¹ý", "²åÈëÊ§°Ü", JOptionPane.ERROR_MESSAGE);
+//			JOptionPane.showMessageDialog(null, "ï¿½ï¿½Ð´ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½îµ¥ï¿½Å¸ï¿½ï¿½ï¿½Ï´Æ¬ï¿½Ë¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½", JOptionPane.ERROR_MESSAGE);
 //			return 0;
 //		} finally {
-//			// ¹Ø±ÕÓï¾ä
+//			// ï¿½Ø±ï¿½ï¿½ï¿½ï¿½
 //			try {
 //				if (!pstmt2.isClosed()) {
 //					try {
 //						pstmt2.close();
-//						System.out.println("Ï´Æ¬Óï¾ä¹Ø±Õ³É¹¦");
+//						System.out.println("Ï´Æ¬ï¿½ï¿½ï¿½Ø±Õ³É¹ï¿½");
 //					} catch (SQLException e) {
 //						e.printStackTrace();
 //					}
@@ -325,14 +323,14 @@ public class SQLManager {
 //
 //	}
 
-	// TODO ²åÈë¹¤ÈËÊÂÎï±í
+	// TODO ï¿½ï¿½ï¿½ë¹¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public int insert_workload_records_table(String[] str) {
 		try {
 			pstmt3 = conn.prepareStatement(
 					"insert into workload_records_table values(null,now(),?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
-			System.out.println("statment_paipian´´½¨³É¹¦");
+			System.out.println("statment_paipianï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½");
 		} catch (SQLException e) {
-			// »ñµÃÓï¾äÊ§°ÜÔòÖØÁ¬
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			e.printStackTrace();
 			reconnect();
 			try {
@@ -340,12 +338,12 @@ public class SQLManager {
 						"insert into workload_records_table values(null,now(),?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
 			} catch (SQLException f) {
 				f.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Êý¾Ý¿âÁ¬½ÓÊ§°Ü£¬ÎÞ·¨²åÈë¹¤ÈË¹¤×÷Á¿", "Á¬½ÓÊ§°Ü", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ë¹¤ï¿½Ë¹ï¿½ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½", JOptionPane.ERROR_MESSAGE);
 				return 0;
 			}
 
 		}
-		// catch½áÊø£¬Ö´ÐÐÖ®ºóÓï¾ä
+		// catchï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½ï¿½
 		try {
 			for (int i = 0; i < str.length; i++) {
 				if (!str[i].equals(""))
@@ -354,20 +352,20 @@ public class SQLManager {
 					pstmt3.setNull(i + 1, java.sql.Types.VARCHAR);
 			}
 			pstmt3.executeUpdate();
-			System.out.println("²åÈë¹¤ÈË¹¤×÷Á¿Ö´ÐÐ³É¹¦");
-			JOptionPane.showMessageDialog(null, "²åÈë³É¹¦", "³É¹¦", JOptionPane.PLAIN_MESSAGE);
+			System.out.println("ï¿½ï¿½ï¿½ë¹¤ï¿½Ë¹ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð³É¹ï¿½");
+			JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½ï¿½É¹ï¿½", "ï¿½É¹ï¿½", JOptionPane.PLAIN_MESSAGE);
 			return 1;
 		} catch (SQLException e1) {
 			e1.printStackTrace();
-			JOptionPane.showMessageDialog(null, "ÌîÐ´ÐÅÏ¢´íÎó»ò¸ÃÖ¸Áîµ¥ºÅ¸ÃÈÕÅÄÆ¬ÈË¹¤×÷Á¿ÒÑÊäÈë¹ý", "²åÈëÊ§°Ü", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "ï¿½ï¿½Ð´ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½îµ¥ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ï¿½Æ¬ï¿½Ë¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½", JOptionPane.ERROR_MESSAGE);
 			return 0;
 		} finally {
-			// ¹Ø±ÕÓï¾ä
+			// ï¿½Ø±ï¿½ï¿½ï¿½ï¿½
 			try {
 				if (!pstmt3.isClosed()) {
 					try {
 						pstmt3.close();
-						System.out.println("¹¤ÈËÊÂÎñ±íÓï¾ä¹Ø±Õ³É¹¦");
+						System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø±Õ³É¹ï¿½");
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
@@ -380,14 +378,14 @@ public class SQLManager {
 
 	}
 
-	// TODO ²åÈë±¨¸æ±í
+	// TODO ï¿½ï¿½ï¿½ë±¨ï¿½ï¿½ï¿½
 	public int insert_report_table(String[] str) {
 		try {
 			pstmt4 = conn.prepareStatement(
 					"insert into report_table values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
-			System.out.println("statment_report´´½¨³É¹¦");
+			System.out.println("statment_reportï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½");
 		} catch (SQLException e) {
-			// »ñµÃÓï¾äÊ§°ÜÔòÖØÁ¬
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			e.printStackTrace();
 			reconnect();
 			try {
@@ -395,12 +393,12 @@ public class SQLManager {
 						"insert into report_table values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
 			} catch (SQLException f) {
 				f.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Êý¾Ý¿âÁ¬½ÓÊ§°Ü£¬ÎÞ·¨²åÈë±¨¸æ±í", "Á¬½ÓÊ§°Ü", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ë±¨ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½", JOptionPane.ERROR_MESSAGE);
 				return 0;
 			}
 
 		}
-		// catch½áÊø£¬Ö´ÐÐÖ®ºóÓï¾ä
+		// catchï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½ï¿½
 		try {
 			for (int i = 0; i < str.length; i++) {
 				if (!str[i].equals(""))
@@ -409,20 +407,20 @@ public class SQLManager {
 					pstmt4.setNull(i + 1, java.sql.Types.VARCHAR);
 			}
 			pstmt4.executeUpdate();
-			System.out.println("²åÈë±¨¸æÖ´ÐÐ³É¹¦");
-			JOptionPane.showMessageDialog(null, "²åÈë³É¹¦", "³É¹¦", JOptionPane.PLAIN_MESSAGE);
+			System.out.println("ï¿½ï¿½ï¿½ë±¨ï¿½ï¿½Ö´ï¿½Ð³É¹ï¿½");
+			JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½ï¿½É¹ï¿½", "ï¿½É¹ï¿½", JOptionPane.PLAIN_MESSAGE);
 			return 1;
 		} catch (SQLException e1) {
 			e1.printStackTrace();
-			JOptionPane.showMessageDialog(null, "ÌîÐ´ÐÅÏ¢´íÎó»ò¸Ã±¨¸æ±àºÅÒÑ´æÔÚ", "²åÈëÊ§°Ü", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "ï¿½ï¿½Ð´ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½", JOptionPane.ERROR_MESSAGE);
 			return 0;
 		} finally {
-			// ¹Ø±ÕÓï¾ä
+			// ï¿½Ø±ï¿½ï¿½ï¿½ï¿½
 			try {
 				if (!pstmt4.isClosed()) {
 					try {
 						pstmt4.close();
-						System.out.println("±¨¸æÓï¾ä¹Ø±Õ³É¹¦");
+						System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø±Õ³É¹ï¿½");
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
@@ -435,34 +433,34 @@ public class SQLManager {
 
 	}
 
-	// TODO ²åÈëºÏÍ¬±í
+	// TODO ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½
 	public int insert_hetong_table(String[] str) {
 		try {
 			pstmt5 = conn.prepareStatement("insert into hetong_table values(null,?,?,?,?,?,?);");
-			System.out.println("statment_ht´´½¨³É¹¦");
+			System.out.println("statment_htï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½");
 		} catch (SQLException e) {
-			// »ñµÃÓï¾äÊ§°ÜÔòÖØÁ¬
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			e.printStackTrace();
 			reconnect();
 			try {
 				pstmt5 = conn.prepareStatement("insert into hetong_table values(null,?,?,?,?,?,?);");
 			} catch (SQLException f) {
 				f.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Êý¾Ý¿âÁ¬½ÓÊ§°Ü£¬ÎÞ·¨²åÈëºÏÍ¬±í", "Á¬½ÓÊ§°Ü", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½", JOptionPane.ERROR_MESSAGE);
 				return 0;
 			}
 
 		}
-		// catch½áÊø£¬Ö´ÐÐÖ®ºóÓï¾ä
+		// catchï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½ï¿½
 		try {
-			// µ¹ÊýµÚ¶þ¸öÊÇ¶þ½øÖÆÎÄ¼þ£¬ËùÒÔ³¤¶È¼õ2
+			// ï¿½ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½Ç¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô³ï¿½ï¿½È¼ï¿½2
 			for (int i = 0; i < str.length - 2; i++) {
 				if (!str[i].equals(""))
 					pstmt5.setString(i + 1, str[i]);
 				else
 					pstmt5.setNull(i + 1, java.sql.Types.VARCHAR);
 			}
-			// ¶ÔmediumBlobµÄ´¦Àí
+			// ï¿½ï¿½mediumBlobï¿½Ä´ï¿½ï¿½ï¿½
 			if (!str[4].equals("")) {
 				File f = new File(str[4]);
 				try {
@@ -479,20 +477,20 @@ public class SQLManager {
 			pstmt5.setString(6, str[5]);
 
 			pstmt5.executeUpdate();
-			System.out.println("²åÈëºÏÍ¬Ö´ÐÐ³É¹¦");
-			JOptionPane.showMessageDialog(null, "²åÈë³É¹¦", "³É¹¦", JOptionPane.PLAIN_MESSAGE);
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Í¬Ö´ï¿½Ð³É¹ï¿½");
+			JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½ï¿½É¹ï¿½", "ï¿½É¹ï¿½", JOptionPane.PLAIN_MESSAGE);
 			return 1;
 		} catch (SQLException e1) {
 			e1.printStackTrace();
-			JOptionPane.showMessageDialog(null, "ÌîÐ´ÐÅÏ¢´íÎó»ò¸ÃºÏÍ¬±àºÅÒÑ´æÔÚ", "²åÈëÊ§°Ü", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "ï¿½ï¿½Ð´ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½Ãºï¿½Í¬ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½", JOptionPane.ERROR_MESSAGE);
 			return 0;
 		} finally {
-			// ¹Ø±ÕÓï¾ä
+			// ï¿½Ø±ï¿½ï¿½ï¿½ï¿½
 			try {
 				if (!pstmt5.isClosed()) {
 					try {
 						pstmt5.close();
-						System.out.println("ºÏÍ¬Óï¾ä¹Ø±Õ³É¹¦");
+						System.out.println("ï¿½ï¿½Í¬ï¿½ï¿½ï¿½Ø±Õ³É¹ï¿½");
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
@@ -506,14 +504,14 @@ public class SQLManager {
 	}
 	
 	
-	// TODO ²åÈë¶ÔÄÚµ¥¼Û±í
+	// TODO ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½Û±ï¿½
 	public int insert_duinei_price_table(String[] str) {
 		try {
 			pstmt6 = conn.prepareStatement(
 					"insert into duinei_price_table values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
-			System.out.println("statment_NP´´½¨³É¹¦");
+			System.out.println("statment_NPï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½");
 		} catch (SQLException e) {
-			// »ñµÃÓï¾äÊ§°ÜÔòÖØÁ¬
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			e.printStackTrace();
 			reconnect();
 			try {
@@ -521,12 +519,12 @@ public class SQLManager {
 						"insert into duinei_price_table values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
 			} catch (SQLException f) {
 				f.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Êý¾Ý¿âÁ¬½ÓÊ§°Ü£¬ÎÞ·¨´´½¨Ëã¹¤×Êµ¥¼Û", "Á¬½ÓÊ§°Ü", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ã¹¤ï¿½Êµï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½", JOptionPane.ERROR_MESSAGE);
 				return 0;
 			}
 
 		}
-		// catch½áÊø£¬Ö´ÐÐÖ®ºóÓï¾ä
+		// catchï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½ï¿½
 		try {
 			for (int i = 0; i < str.length; i++) {
 				if (!str[i].equals(""))
@@ -535,20 +533,20 @@ public class SQLManager {
 					pstmt6.setNull(i + 1, java.sql.Types.VARCHAR);
 			}
 			pstmt6.executeUpdate();
-			System.out.println("Ëã¹¤×Êµ¥¼Û´´½¨³É¹¦");
-			JOptionPane.showMessageDialog(null, "´´½¨³É¹¦", "³É¹¦", JOptionPane.PLAIN_MESSAGE);
+			System.out.println("ï¿½ã¹¤ï¿½Êµï¿½ï¿½Û´ï¿½ï¿½ï¿½ï¿½É¹ï¿½");
+			JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½", "ï¿½É¹ï¿½", JOptionPane.PLAIN_MESSAGE);
 			return 1;
 		} catch (SQLException e1) {
 			e1.printStackTrace();
-			JOptionPane.showMessageDialog(null, "ÌîÐ´ÐÅÏ¢´íÎó", "²åÈëÊ§°Ü", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "ï¿½ï¿½Ð´ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½", JOptionPane.ERROR_MESSAGE);
 			return 0;
 		} finally {
-			// ¹Ø±ÕÓï¾ä
+			// ï¿½Ø±ï¿½ï¿½ï¿½ï¿½
 			try {
 				if (!pstmt6.isClosed()) {
 					try {
 						pstmt6.close();
-						System.out.println("Ëã¹¤×Êµ¥¼Û¹Ø±Õ³É¹¦");
+						System.out.println("ï¿½ã¹¤ï¿½Êµï¿½ï¿½Û¹Ø±Õ³É¹ï¿½");
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
@@ -562,14 +560,14 @@ public class SQLManager {
 	}
 	
 	
-	// TODO ²åÈë¶ÔÍâµ¥¼Û±í
+	// TODO ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âµ¥ï¿½Û±ï¿½
 	public int insert_duiwai_price_table(String[] str) {
 		try {
 			pstmt7 = conn.prepareStatement(
 					"insert into duiwai_price_table values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
-			System.out.println("statment_WP´´½¨³É¹¦");
+			System.out.println("statment_WPï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½");
 		} catch (SQLException e) {
-			// »ñµÃÓï¾äÊ§°ÜÔòÖØÁ¬
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			e.printStackTrace();
 			reconnect();
 			try {
@@ -577,12 +575,12 @@ public class SQLManager {
 						"insert into duiwai_price_table values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
 			} catch (SQLException f) {
 				f.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Êý¾Ý¿âÁ¬½ÓÊ§°Ü£¬ÎÞ·¨´´½¨Ëã²úÖµµ¥¼Û", "Á¬½ÓÊ§°Ü", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½", JOptionPane.ERROR_MESSAGE);
 				return 0;
 			}
 
 		}
-		// catch½áÊø£¬Ö´ÐÐÖ®ºóÓï¾ä
+		// catchï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½ï¿½
 		try {
 			for (int i = 0; i < str.length; i++) {
 				if (!str[i].equals(""))
@@ -591,20 +589,20 @@ public class SQLManager {
 					pstmt7.setNull(i + 1, java.sql.Types.VARCHAR);
 			}
 			pstmt7.executeUpdate();
-			System.out.println("Ëã²úÖµµ¥¼Û´´½¨³É¹¦");
-			JOptionPane.showMessageDialog(null, "´´½¨³É¹¦", "³É¹¦", JOptionPane.PLAIN_MESSAGE);
+			System.out.println("ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½Û´ï¿½ï¿½ï¿½ï¿½É¹ï¿½");
+			JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½", "ï¿½É¹ï¿½", JOptionPane.PLAIN_MESSAGE);
 			return 1;
 		} catch (SQLException e1) {
 			e1.printStackTrace();
-			JOptionPane.showMessageDialog(null, "ÌîÐ´ÐÅÏ¢´íÎó", "²åÈëÊ§°Ü", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "ï¿½ï¿½Ð´ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½", JOptionPane.ERROR_MESSAGE);
 			return 0;
 		} finally {
-			// ¹Ø±ÕÓï¾ä
+			// ï¿½Ø±ï¿½ï¿½ï¿½ï¿½
 			try {
 				if (!pstmt7.isClosed()) {
 					try {
 						pstmt7.close();
-						System.out.println("Ëã²úÖµµ¥¼Û¹Ø±Õ³É¹¦");
+						System.out.println("ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½Û¹Ø±Õ³É¹ï¿½");
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
@@ -619,10 +617,10 @@ public class SQLManager {
 	
 	
 
-	// TODO ¸üÐÂ´ø²ÎÊýµÄ±í
+	// TODO ï¿½ï¿½ï¿½Â´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½
 	public int update_table(int update_num, String[] str) {
 		try (PreparedStatement pstmt = conn.prepareStatement(update_id[update_num]);) {
-			System.out.println("statment_update´´½¨³É¹¦");
+			System.out.println("statment_updateï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½");
 			for (int i = 0; i < str.length; i++) {
 				pstmt.setString(i + 1, str[i]);
 			}
@@ -630,29 +628,29 @@ public class SQLManager {
 			return affect_row;
 
 		} catch (SQLException e) {
-			// Èç¹ûÓÐÒì³£,ÖØÁ¬
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì³£,ï¿½ï¿½ï¿½ï¿½
 			e.printStackTrace();
 			reconnect();
-			JOptionPane.showMessageDialog(null, "Çë¼ì²éÍøÂçÁ¬½Ó£¬ÔÙ´Î³¢ÊÔ»òÖØÐÂ´ò¿ªÈí¼þ", "¸üÐÂÊ§°Ü", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó£ï¿½ï¿½Ù´Î³ï¿½ï¿½Ô»ï¿½ï¿½ï¿½ï¿½Â´ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½", JOptionPane.ERROR_MESSAGE);
 			return -1;
 		}
 	}
 
-	// µ¥¶ÀµÄ²åÈëÓï¾ä·½·¨
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½ä·½ï¿½ï¿½
 	public int submit_insert(String sql) {
 		try {
 			stmt = conn.createStatement();
 			int i = stmt.executeUpdate(sql);
 			return i;
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Êý¾Ý¿âÁ¬½ÓÊ§°Ü£¬¼ì²éÁ¬½Ó", "Á¬½ÓÊ§°Ü,Òò´Ë²éÑ¯Ê§°Ü", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½,ï¿½ï¿½Ë²ï¿½Ñ¯Ê§ï¿½ï¿½", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 			reconnect();
 		}
 		return 0;
 	}
 
-	// µ¥¶ÀµÄ²éÑ¯Óï¾ä·½·¨
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½Ñ¯ï¿½ï¿½ä·½ï¿½ï¿½
 	public ResultSet submit_search(String sql) {
 		try {
 			// PreparedStatement pstm =
@@ -662,7 +660,7 @@ public class SQLManager {
 			ResultSet rs = stmt.executeQuery(sql);
 			return rs;
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "·¢Éú²éÑ¯Óï¾ä´íÎó", "´íÎó", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 			reconnect();
 		}
@@ -754,16 +752,16 @@ public class SQLManager {
 						props.setProperty("url" , address.getText().trim());
 						props.setProperty("port" , port.getText().trim());
 						props.store(new FileOutputStream("mysql.ini"), "modify the data"); 
-						JOptionPane.showMessageDialog(null, "ÐÞ¸Ä³É¹¦", "³É¹¦", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "ï¿½Þ¸Ä³É¹ï¿½", "ï¿½É¹ï¿½", JOptionPane.INFORMATION_MESSAGE);
 						state=false;
 						dispose();
 					} catch (FileNotFoundException e1) {
-						System.out.println("ÕÒ²»µ½ mysql.ini ÎÄ¼þ");
-						JOptionPane.showMessageDialog(null, "ÕÒ²»µ½ mysql.ini ÎÄ¼þ", "ÐÞ¸ÄÊ§°Ü", JOptionPane.ERROR_MESSAGE);
+						System.out.println("ï¿½Ò²ï¿½ï¿½ï¿½ mysql.ini ï¿½Ä¼ï¿½");
+						JOptionPane.showMessageDialog(null, "ï¿½Ò²ï¿½ï¿½ï¿½ mysql.ini ï¿½Ä¼ï¿½", "ï¿½Þ¸ï¿½Ê§ï¿½ï¿½", JOptionPane.ERROR_MESSAGE);
 						e1.printStackTrace();
 					} catch (IOException e1) {
-						System.out.println("ÎÄ¼þ¼ÓÔØ´íÎó");
-						JOptionPane.showMessageDialog(null, "´ò²»¿ª mysql.ini ÎÄ¼þ", "ÐÞ¸ÄÊ§°Ü", JOptionPane.ERROR_MESSAGE);
+						System.out.println("ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Ø´ï¿½ï¿½ï¿½");
+						JOptionPane.showMessageDialog(null, "ï¿½ò²»¿ï¿½ mysql.ini ï¿½Ä¼ï¿½", "ï¿½Þ¸ï¿½Ê§ï¿½ï¿½", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			});
@@ -795,12 +793,12 @@ public class SQLManager {
 				port.setText(pot);
 
 			} catch (FileNotFoundException e) {
-				System.out.println("ÕÒ²»µ½ mysql.ini ÎÄ¼þ");
-				JOptionPane.showMessageDialog(null, "ÕÒ²»µ½ mysql.ini ÎÄ¼þ", "ÐÞ¸ÄÊ§°Ü", JOptionPane.ERROR_MESSAGE);
+				System.out.println("ï¿½Ò²ï¿½ï¿½ï¿½ mysql.ini ï¿½Ä¼ï¿½");
+				JOptionPane.showMessageDialog(null, "ï¿½Ò²ï¿½ï¿½ï¿½ mysql.ini ï¿½Ä¼ï¿½", "ï¿½Þ¸ï¿½Ê§ï¿½ï¿½", JOptionPane.ERROR_MESSAGE);
 				e.printStackTrace();
 			} catch (IOException e) {
-				System.out.println("ÎÄ¼þ¼ÓÔØ´íÎó");
-				JOptionPane.showMessageDialog(null, "´ò²»¿ª mysql.ini ÎÄ¼þ", "ÐÞ¸ÄÊ§°Ü", JOptionPane.ERROR_MESSAGE);
+				System.out.println("ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Ø´ï¿½ï¿½ï¿½");
+				JOptionPane.showMessageDialog(null, "ï¿½ò²»¿ï¿½ mysql.ini ï¿½Ä¼ï¿½", "ï¿½Þ¸ï¿½Ê§ï¿½ï¿½", JOptionPane.ERROR_MESSAGE);
 			}
 			
 		}
